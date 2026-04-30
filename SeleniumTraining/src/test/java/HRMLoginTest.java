@@ -1,7 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,10 +16,10 @@ import java.time.Duration;
  **/
 public class HRMLoginTest {
     WebDriver driver;
+    LoginPOM login;
     @BeforeClass
     void setup(){
-//        driver = new ChromeDriver();
-        //driver.manage().window().maximize();
+       driver = new ChromeDriver();
     }
 
     @Test(testName = "TC1 - Valid Login")
@@ -28,9 +27,10 @@ public class HRMLoginTest {
         //Arrange
         String expectedURL = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
 
-        LoginPOM login = new LoginPOM();
-        LoginPOM.openPage();
-        LoginPOM.adminLogin();
+        login = new LoginPOM(driver);
+
+        login.openPage();
+        login.adminLogin();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         //Actual
@@ -44,11 +44,12 @@ public class HRMLoginTest {
 
         String expectedErrorMsg = "Invalid credentials";
 
-        LoginPOM login = new LoginPOM();
-        LoginPOM.openPage();
-        LoginPOM.enterUsername("Admin");
-        LoginPOM.enterPassword("admin123");
-        LoginPOM.clickLogin();
+        login = new LoginPOM(driver);
+
+        login.openPage();
+        login.enterUsername("Admin");
+        login.enterPassword("admin12345");
+        login.clickLogin();
 
         String actualErrorMsg = LoginPOM.getErrorMsg();
 

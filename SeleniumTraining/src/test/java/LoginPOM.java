@@ -17,8 +17,9 @@ public class LoginPOM {
     private static By btnLogin = By.xpath("//button[@type='submit']");
     private static By lblErrorMsg = By.cssSelector(".oxd-text.oxd-text--p.oxd-alert-content-text");
 
-    public LoginPOM(){
-        driver = new ChromeDriver();
+    public LoginPOM(WebDriver theDriver){
+        driver = theDriver;
+        driver.manage().window().maximize();
     }
 
     public static void openPage(){
